@@ -13,13 +13,13 @@
       
       <categories>
           
-          <category> cate </category>
-          
           <category> java </category>
           
           <category> program </category>
           
           <category> interest </category>
+          
+          <category> cate </category>
           
       </categories>
       
@@ -110,6 +110,17 @@
     
     
     <entry>
+      <title>所有标签</title>
+      <link href="/tags/index.html"/>
+      <url>/tags/index.html</url>
+      
+        <content type="html"><![CDATA[]]></content>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>所有分类</title>
       <link href="/categories/index.html"/>
       <url>/categories/index.html</url>
@@ -124,17 +135,6 @@
       <title>friends</title>
       <link href="/friends/index.html"/>
       <url>/friends/index.html</url>
-      
-        <content type="html"><![CDATA[]]></content>
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>所有标签</title>
-      <link href="/tags/index.html"/>
-      <url>/tags/index.html</url>
       
         <content type="html"><![CDATA[]]></content>
       

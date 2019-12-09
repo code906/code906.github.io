@@ -9,10 +9,29 @@ const loadScript = (scripts) =>{
     })
 };
 
+//show toc at load first
+const showTocFirst = () => {
+    let toc =  document.querySelector('#toc');
+    let tocBtn = document.querySelector('#article_toc');
+    toc && tocBtn.setAttribute('style','display:block');
+};
+
 //article_toc
 const tocBtn = () =>{
+    let body = document.querySelector('body');
     let article = document.querySelector('.post-table');
-    article && article.classList.toggle('expand');
+    if(article && !article.classList.contains('expand')){
+        if(window.innerWidth<768){ body.classList.add('lock'); }  
+        article.classList.add('expand');
+        article.querySelector('#toc').addEventListener('click',(event)=>{
+            event.stopPropagation ? event.stopPropagation() : event.cancelBubble = true;
+        });
+    }else if(article){
+        body.classList.remove('lock');
+        article.classList.remove('expand');
+    }
+    let event = window.event || arguments.callee.caller.arguments[0];
+    event.stopPropagation ? event.stopPropagation() : event.cancelBubble = true;
 };
 
 //at rate from position scroll to destination
@@ -53,6 +72,8 @@ const goToTop = () => {
             window.scrollTo(0, val);
         });
     }
+    let event = window.event || arguments.callee.caller.arguments[0];
+    event.stopPropagation ? event.stopPropagation() : event.cancelBubble = true;
 };
 
 
@@ -216,22 +237,24 @@ const tabBarBtn = (el) => {
 
 //左侧sidebar点击按钮
 const sideBarToggle = (btn,aside) =>{
+    let body = document.querySelector('body');
     btn.addEventListener('click',(event)=>{
         event = event || window.event;
         event.stopPropagation ? event.stopPropagation() : event.cancelBubble = true;
-        aside.classList.toggle('expand');
+        
+        if(aside.classList.contains('expand')){
+            aside.classList.remove('expand');
+            body.classList.remove('lock');
+        }else{
+            aside.classList.add('expand');
+            body.classList.add('lock');
+        }
     });
 };
 
 //自适应页面，调整页面高度匹配absolute高度
 
-//点击按钮纹波效果
 
-//代码复制
-
-//代码收缩
-
-//代码框语言识别
 
 (function (w,d) {
 
@@ -247,7 +270,7 @@ const sideBarToggle = (btn,aside) =>{
         isWX = /micromessenger/i.test(navigator.userAgent);
 
         /*article_toc*/
-        //tocBtn();
+        showTocFirst();
 
         /*toc position*/
         var options = registerSidebarTOC($('#toc'));    //注册点击事件
@@ -260,6 +283,15 @@ const sideBarToggle = (btn,aside) =>{
                 // 页面加载完毕
                 loading.classList.remove('active');
             }
+        }
+
+        /*点击按钮纹波效果*/
+        if (w.Waves) {
+            Waves.init();
+            Waves.attach('.global-share li', ['waves-block']);
+            Waves.attach('.article-tag-list-link, #page-nav a, #page-nav span', ['waves-button']);
+        } else {
+            //console.error('Waves loading failed.')
         }
 
         /*gotop*/
@@ -284,6 +316,7 @@ const sideBarToggle = (btn,aside) =>{
         document.addEventListener('click',(event)=>{
             /*点击其他关闭dialog*/
             $('#aside') && $('#aside').classList.remove('expand');
+            if(window.innerWidth<768){$('#toc') && $('#toc').parentNode.classList.remove('expand');}
             $('#globalShare') && $('#globalShare').classList.remove('in');
             $('.modal.in') && $('.modal.in').classList.remove('in');
             $('#barShare') && $('#barShare').classList.remove('in');

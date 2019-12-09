@@ -1,20 +1,28 @@
 /*只有该js用了jquery，其他js文件均原生，无任何依赖*/
 
 /*pjax-container*/
-$(document).pjax('a','#main',{
-	fragment: '#main',
-	timeout: 1000,
-	cache: false
-});
+if ($.support.pjax) {
+  $(document).pjax('a','#main',{
+    fragment: '#main',
+    timeout: 1000,
+    cache: false
+  });
+}
 
 /**/
-/*$(document).on('pjax:complete', function() {
-	pajx_loadDuodsuo();//pjax加载完成之后调用重载多说函数
+$(document).on('pjax:complete', function() {
+	pajx_loadtocBtn();//pjax加载完成之后调用函数
 });
-function pajx_loadDuodsuo(){
-	var dus=$("#barShare");
-	console.log(dus);
-}*/
+function pajx_loadtocBtn(){
+  var toc = document.querySelector('#toc'),
+      article_toc = document.querySelector('#article_toc');
+  console.log(toc);
+	if(toc){
+    article_toc.setAttribute('style','display:block');
+  }else{
+    article_toc.setAttribute('style','display:none');
+  }
+}
 
 /*fancybox*/
 /*集成fancybox, 为所有img元素添加父元素*/
@@ -38,13 +46,7 @@ $(function() {
     });
 });
 
-$(document).ready(function(){
-    hljs.initHighlightingOnLoad();
-});
-
-
 
 
 /*代码折叠*/
 
-hljs.initHighlightingOnLoad();

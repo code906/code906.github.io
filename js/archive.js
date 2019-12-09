@@ -24,6 +24,13 @@ var s = {
 
     /*创建wrap框架，一个UI界面*/
 	createWarp : function(){
+        //如果已经创建了warp，不重复创建
+        console.log('dsa');
+        var className = 'archiveBarSelector';
+        var wrap = document.querySelector('.'+className);
+        if(wrap) return;
+
+        //初始化
 		var that = this;
         var inputPos = that.getPos(that.input);
         var div = that.rootDiv = document.createElement('div');
@@ -44,16 +51,18 @@ var s = {
             if (that.ul) that.ul.classList.add('hide');
             if(that.myIframe) that.myIframe.classList.add('hide');
         });
-        window.onresize = function() {
-            if (that.menuBarBox) that.menuBarBox.classList.add('hide');
-        };
+        if(window.innerWidth>768){
+            window.onresize = function() {
+                if (that.menuBarBox) that.menuBarBox.classList.add('hide');
+            };            
+        }
 
 
-        div.className = 'archiveBarSelector';
+        div.className = className;
         div.style.position = 'absolute';
         div.style.left = inputPos.left + 'px';
         div.style.top = inputPos.bottom + 'px';
-        div.style.zIndex = 999;
+        div.style.zIndex = 1;
 
         // 判断是否IE6，如果是IE6需要添加iframe才能遮住SELECT框
         var isIe = (document.all) ? true : false;
@@ -170,8 +179,10 @@ var s = {
     inputEvent : function(){  
         var that = this;
         var defaultInput = this.placeholder;
-        that.input.addEventListener("click", function(){
+        that.input.addEventListener("click", function(event){
             event = event || window.event;
+            event.stopPropagation ? event.stopPropagation() : event.cancelBubble = true;
+            event.preventDefault();
             if(!that.menuBarBox){
                 that.createWarp();
             }else if(!!that.menuBarBox && that.menuBarBox.classList.contains('hide')){
@@ -200,7 +211,7 @@ var s = {
             event = event || window.event;
             var keycode = event.keyCode;
 
-            that.menuBarBox.classList.add('hide');
+            that.menuBarBox && that.menuBarBox.classList.add('hide');
             that.createSearchUl();
 
             /* 移除iframe 的hide 样式 */
@@ -390,6 +401,7 @@ var Vmoment = {
     ],
 
     menuBarSelector : function () {
+        console.log('321');
         arguments[0]._template = Vmoment._template;
         this.initialize.apply(this, arguments);
     }
@@ -401,19 +413,28 @@ var Vmoment = {
 //Main function entry
 const archiveClick = () =>{
 
+    //var mm = document.querySelector('.archiveBarSelector');
+    //if(mm) return;
+
 	var archive_json = (typeof ARCHIVE != "undefined") ? ARCHIVE.DATA.replace(/&#34;/g,'"').replace(/&#39;/g,"'") : '';
     if(archive_json == '') return;
 	archive_json = JSON.parse(archive_json);
 	//console.log(archive_json);
 
-    /*input*/
+    /*input添加初始化*/
 	Vmoment.menuBarSelector.prototype = s;
-	new Vmoment.menuBarSelector({
+	const k = new Vmoment.menuBarSelector({
 		inputId:'#archivesBarinput',
 		selectData:archive_json,
 		placeholder:'请输入内容'
 	});
 
+    /*触发input的点击，进入初始*/
+    if(!document.querySelector('.archiveBarSelector')){
+        var m = document.querySelector('#archivesBarinput');
+        m.click();
+    }
+    
     /*button*/
 	var result,
         archivesBarBtn = document.querySelector('#archivesBarBtn'),
