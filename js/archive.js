@@ -11,24 +11,25 @@ var s = {
 
 	//constructor : this,
 
-
 	initialize : function (options) {
         var inputId = options.inputId;
         this.input = document.querySelector(inputId);
         this.input.autocomplete="off";
+        this.boxId = options.boxId;
         this.selectData = options.selectData;
         this._template = options._template;
         this.placeholder = options.placeholder;
-        this.inputEvent();
+        //this.inputEvent();
+        this.createWarp();
+        this.createSearchUl();
 	},
 
     /*创建wrap框架，一个UI界面*/
 	createWarp : function(){
         //如果已经创建了warp，不重复创建
-        console.log('dsa');
-        var className = 'archiveBarSelector';
-        var wrap = document.querySelector('.'+className);
-        if(wrap) return;
+        var idName = '#'+this.boxId;
+        var wrap = document.querySelector(idName);
+        if(wrap) { return; }
 
         //初始化
 		var that = this;
@@ -42,27 +43,27 @@ var s = {
         });
 
         // 设置点击文档隐藏弹出的选择框
-        document.addEventListener('click', function (event){
-            event = event || window.event;
-            var target = event.target || event.srcElement;
-            if(target == that.input) return false;
+        // document.addEventListener('click', function (event){
+        //     event = event || window.event;
+        //     var target = event.target || event.srcElement;
+        //     if(target == that.input) return false;
 
-            if (that.menuBarBox) that.menuBarBox.classList.add('hide');
-            if (that.ul) that.ul.classList.add('hide');
-            if(that.myIframe) that.myIframe.classList.add('hide');
-        });
-        if(window.innerWidth>768){
-            window.onresize = function() {
-                if (that.menuBarBox) that.menuBarBox.classList.add('hide');
-            };            
-        }
+        //     if (that.menuBarBox) that.menuBarBox.classList.add('hide');
+        //     if (that.ul) that.ul.classList.add('hide');
+        //     if(that.myIframe) that.myIframe.classList.add('hide');
+        // });
+        // if(window.innerWidth>768){
+        //     window.onresize = function() {
+        //         if (that.menuBarBox) that.menuBarBox.classList.add('hide');
+        //     };            
+        // }
 
 
-        div.className = className;
+        div.className = 'archiveBarSelector';
         div.style.position = 'absolute';
         div.style.left = inputPos.left + 'px';
         div.style.top = inputPos.bottom + 'px';
-        div.style.zIndex = 1;
+        div.style.zIndex = 5;
 
         // 判断是否IE6，如果是IE6需要添加iframe才能遮住SELECT框
         var isIe = (document.all) ? true : false;
@@ -78,7 +79,7 @@ var s = {
 
         var childdiv = that.menuBarBox = document.createElement('div');
         childdiv.className = 'archiveBarBox';
-        childdiv.id = 'archiveBarBox';
+        childdiv.id = this.boxId;
         childdiv.innerHTML = this._template.join('');
         var hotmenuBar = that.hotmenuBar =  document.createElement('div');
         hotmenuBar.className = 'hotmenuBar';
@@ -107,13 +108,13 @@ var s = {
                     odl = document.createElement('dl');
                     odt = document.createElement('dt');
                     odd = document.createElement('dd');
-                    odt.innerHTML = '<a href="#" title=' + dataItem.year  +'>' + dataItem.year + '</a>';
+                    odt.innerHTML = '<a href="#" data-type="year" title=' + dataItem.year  +'>' + dataItem.year + '</a>';
                     
                     odda = [];
                     for(var m=0,n=dataItem.months.length;m<n;m++){
                         var content = (/([\u4E00-\u9FA5\uf900-\ufa2d]+)/g).exec(dataItem.months[m])[0]; //取中文显示
                         var num = (/([1-9]\d*)/g).exec(dataItem.months[m])[0]; //取数字显示
-                        str = '<a href="#" title=' + dataItem.year + '/' + num +'>' + content + '</a>';
+                        str = '<a href="#" data-type="months" title=' + dataItem.year + '/' + num +'>' + content + '</a>';
                         odda.push(str);
                     }
                     odd.innerHTML = odda.join('');
@@ -136,8 +137,8 @@ var s = {
         this.changeIframe();
 
         //this.searchLiBarEvent();    //去除模板_template的input后，该函数失效
-        this.tabChange();
-        this.hotMenulinkEvent();
+        //this.tabChange();
+        //this.hotMenulinkEvent();
     },
 
     /*在创建的wrap框架基础上，tabs切换*/
@@ -161,69 +162,6 @@ var s = {
         }
     },
 
-    hotMenulinkEvent : function(){
-        var links = this.hotmenuBar.querySelectorAll('a');//寻找所有a
-        var that = this;
-        for(var i=0,n=links.length;i<n;i++){
-            links[i].onclick = function(){
-                //that.input.value = this.innerHTML;
-                that.input.value = this.title;
-                that.input.setAttribute('data-result',this.title);
-                that.menuBarBox.classList.add('hide');
-                /* 点击城市名的时候隐藏myIframe */
-                that.myIframe && that.myIframe.add('hide');
-            }
-        }
-    },
-
-    inputEvent : function(){  
-        var that = this;
-        var defaultInput = this.placeholder;
-        that.input.addEventListener("click", function(event){
-            event = event || window.event;
-            event.stopPropagation ? event.stopPropagation() : event.cancelBubble = true;
-            event.preventDefault();
-            if(!that.menuBarBox){
-                that.createWarp();
-            }else if(!!that.menuBarBox && that.menuBarBox.classList.contains('hide')){
-                // slideul 不存在或者 slideul存在但是是隐藏的时候 两者不能共存
-                if(!that.ul || (that.ul && that.ul.classList.contains('hide'))){
-                    that.menuBarBox.classList.remove('hide');
-
-                    var inputPos = that.getPos(this);
-                    that.rootDiv.style.left = inputPos.left + 'px';
-
-                    /* IE6 移除iframe 的hide 样式 */
-                    //alert('click');
-                    that.myIframe && that.myIframe.classList.remove('hide');
-                    that.changeIframe();
-                }
-            }
-        });
-        that.input.addEventListener("focus", function(){
-            that.input.select();
-            if(that.input.value == defaultInput) that.input.value = '';
-        });
- 		that.input.addEventListener("blur", function(){
-            if(that.input.value == '') that.input.value = defaultInput;
-        });
-        that.input.addEventListener("keyup", function(event){
-            event = event || window.event;
-            var keycode = event.keyCode;
-
-            that.menuBarBox && that.menuBarBox.classList.add('hide');
-            that.createSearchUl();
-
-            /* 移除iframe 的hide 样式 */
-            that.myIframe && that.myIframe.classList.remove('hide');
-
-            // 下拉菜单显示的时候捕捉按键事件
-            if(that.ul && !that.ul.classList.contains('hide') && !that.isEmpty){
-                that.KeyboardEvent(event,keycode);
-            }
-        });
-    },
-
     searchResultUl:function(monthN,monthC,year){
         var str;
         str = '<li title = '+ year +'/'+ monthN +'><b class="archiveBarname">' + year + '</b><b class="archiveBarspell">' + monthC + '</b></li>';
@@ -231,15 +169,15 @@ var s = {
     },
 
     /*在创建的wrap框架基础上，搜索结果界面*/
-    createSearchUl :function () {
+    createSearchUl :function (value=null) {
         var searchData = this.selectData;
         var that = this;
         var str,match = null,searchResult=[];
-        var regExChiese = /[一|二|三|四|五|六|七|八|九|十|十一|十二]月/g,
+        var regExChiese = /[\u4e00-\u9fa5]+/g,
             regExNum = /([1-9]\d*)/g,
             regExEnglish = /([a-zA-Z]+)/g;
 
-        var value = this.input.value.trim();
+        var value = value || this.input.value.trim();
         // 当value不等于空的时候执行
         if (value !== '') {
             //var reg = new RegExp("^" + value + "|\\|" + value, 'gi');
@@ -253,7 +191,6 @@ var s = {
                             var monthNum = regExNum.exec(dataItem.months[i]);
                             //var monthEN = regExEnglish.exec(dataItem.months[i]);
                             var monthCN = regExChiese.exec(dataItem.months[i]);
-
                             searchResult.push(that.searchResultUl(monthNum[0],monthCN[0],dataItem.year));
                         }
                     }
@@ -270,7 +207,7 @@ var s = {
             // 如果slideul不存在则添加ul
             if (!this.ul) {
                 var ul = this.ul = document.createElement('ul');
-                ul.className = 'archiveBarslide';
+                ul.className = 'archiveBarslide';//hide
                 this.rootDiv && this.rootDiv.appendChild(ul);
                 // 记录按键次数，方向键
                 this.count = 0;
@@ -283,7 +220,7 @@ var s = {
             this.changeIframe();
 
             // 绑定Li事件
-            this.searchLiEvent();
+            //this.searchLiEvent();
         }else{
         	this.ul && this.ul.classList.add('hide');
         	this.menuBarBox && this.menuBarBox.classList.remove('hide');
@@ -298,92 +235,7 @@ var s = {
         if(!this.isIE6)return;
         this.myIframe.style.width = this.rootDiv.offsetWidth + 'px';
         this.myIframe.style.height = this.rootDiv.offsetHeight + 'px';
-    },
-
-    /* *
-     * 特定键盘事件，上、下、Enter键
-     * @ KeyboardEvent
-     * */
-
-    KeyboardEvent:function(event,keycode){
-        var lis = this.ul.querySelectorAll('li');
-        var len = lis.length;
-        var regExChiese = /([\u4E00-\u9FA5\uf900-\ufa2d]+)/g;
-        switch(keycode){
-            case 40: //向下箭头↓
-                this.count++;
-                if(this.count > len-1) this.count = 0;
-                for(var i=0;i<len;i++){
-                	lis[i].classList.remove('on');
-                }
-                lis[this.count].classList.add('on');
-                break;
-            case 38: //向上箭头↑
-                this.count--;
-                if(this.count<0) this.count = len-1;
-                for(i=0;i<len;i++){
-                	lis[i].classList.remove('on');
-                }
-                lis[this.count].classList.add('on');
-                break;
-            case 13: // enter键
-                this.input.value = regExChiese.exec(lis[this.count].innerHTML)[0];
-                this.ul.classList.add('hide');
-                /* IE6 */
-                this.myIframe && this.myIframe.classList.add('hide');
-                break;
-            default:
-                break;
-        }
-    },
-
-    /* *
-     * 下拉的搜索框
-     * @ searchLiBarEvent
-     * */
-     searchLiBarEvent:function (){
-        var that = this;
-        var liBarSearch =  this.querySelector('#menuBarSearch');
-        liBarSearch.addEventListener('input',function(event){
-            event = event || window.event;
-            var target = event.target || event.srcElement;
-            var value = liBarSearch.value.trim();
-
-        })
-     },
-
-    /* *
-     * 搜索结果的下拉列表的li事件
-     * @ liEvent
-     * */
-
-    searchLiEvent:function(){
-        var that = this;
-        var lis = this.ul.querySelectorAll('li');
-
-        for(var i = 0,n = lis.length;i < n;i++){
-        	lis[i].addEventListener('click',function(event){
-                event = event || window.event;
-                var target = event.target || event.srcElement;
-                that.input.value = this.title;
-                that.input.setAttribute('data-result',this.title);
-
-                that.ul.classList.add('hide');
-                /* IE6 下拉菜单点击事件 */
-                that.myIframe && that.myIframe.classList.add('hide');
-            });
-            lis[i].addEventListener('mouseover',function(event){
-                event = event || window.event;
-                var target = event.target || event.srcElement;
-                target.classList.add('on');
-            });
-            lis[i].addEventListener('mouseout',function(event){
-                event = event || window.event;
-                var target = event.target || event.srcElement;
-                target.classList.remove('on');
-            })
-        }
-    }
+    } 
 }
 
 
@@ -392,29 +244,74 @@ var Vmoment = {
     /* HTML模板 */
     _template : [
         '<p class="tip">年月(支持汉字/英文/数字搜索)</p>',
+        '<input id="searchArchiveBar" class="archiveSearchBar">',
         '<ul id="menul">',
         // '<li><input type="text" id="menuBarSearch"/></li>',
-        '<li class="on">年月数据</li>',
-        //'<li>2016~2019</li>',
-        //'<li>2020~2023</li>',
-        '</ul>'
+        '<li class="on" data-type="tabs">年月数据</li>',
+        //'<li data-type="tabs">2016~2019</li>',
+        //'<li data-type="tabs">2020~2023</li>',
+        '</ul>',
     ],
 
     menuBarSelector : function () {
-        console.log('321');
         arguments[0]._template = Vmoment._template;
         this.initialize.apply(this, arguments);
     }
-
 };
 
 
+const wrapEvent = (dataItem,inputBar) =>{
+		var dataType = dataItem.getAttribute('data-type');
+        if(dataType==='year' && inputBar)
+        {
+            var result = dataItem.getAttribute('title');
+            inputBar.value=result;
+            inputBar.setAttribute('data-result',result);
+            var m = inputBar.nextElementSibling;
+            m.setAttribute('href','/archives/' + result)
+        }else if(dataType==='months' && inputBar){
+            var result = dataItem.getAttribute('title');
+            inputBar.value=result;
+            inputBar.setAttribute('data-result',result);
+            var m = inputBar.nextElementSibling;
+            m.setAttribute('href','/archives/' + result)
+        }
+};
+
+const addWrapListener = (wrap,inputBar,archives) =>{
+	wrap && wrap.addEventListener('click',e=>{
+		var target = e.target || e.srcElement;
+		if(target.getAttribute('data-type')==='year'){
+				wrapEvent(target,inputBar);
+		}else if(target.getAttribute('data-type')==='months'){
+				wrapEvent(target,inputBar);
+		}else if(target.getAttribute('data-type')==='tabs'){
+				//console.log('tabs');
+		}
+	});
+	var search = wrap && wrap.querySelector('#searchArchiveBar');
+	search && search.addEventListener('input',e=>{
+		var n=search.parentNode.children,value = search.value,
+			index=[].indexOf.call(n,search);
+		if(value!=''){
+			for(var i=index+1;i<n.length;i++){
+				n[i].classList.add('none');
+			}
+			var h=document.querySelector('.archiveBarslide');
+			h && h.classList.remove('none');
+			archives.createSearchUl(value);
+		}else{
+			for(var i=index+1;i<n.length;i++){
+				n[i].classList.remove('none');
+			}
+			var h=document.querySelector('.archiveBarslide');
+			h && h.classList.add('none');
+		}
+	});
+};
 
 //Main function entry
 const archiveClick = () =>{
-
-    //var mm = document.querySelector('.archiveBarSelector');
-    //if(mm) return;
 
 	var archive_json = (typeof ARCHIVE != "undefined") ? ARCHIVE.DATA.replace(/&#34;/g,'"').replace(/&#39;/g,"'") : '';
     if(archive_json == '') return;
@@ -424,31 +321,35 @@ const archiveClick = () =>{
     /*input添加初始化*/
 	Vmoment.menuBarSelector.prototype = s;
 	const k = new Vmoment.menuBarSelector({
-		inputId:'#archivesBarinput',
+		inputId:'#archivesBarInput',
+        boxId:'archiveBarBox',
 		selectData:archive_json,
 		placeholder:'请输入内容'
 	});
 
-    /*触发input的点击，进入初始*/
-    if(!document.querySelector('.archiveBarSelector')){
-        var m = document.querySelector('#archivesBarinput');
-        m.click();
-    }
-    
-    /*button*/
-	var result,
-        archivesBarBtn = document.querySelector('#archivesBarBtn'),
-        archivesBarInput = document.querySelector('#archivesBarinput');
-    archivesBarBtn.addEventListener('click',() => {
-        result = archivesBarInput.getAttribute('data-result');
-
-        if(result){
-            archivesBarBtn.querySelector('a').href = '/archives/' + result;
-        }
-    });
+	return k;
 };
 
 (function (w,d){
+    var archives,initflag=true;
+    document.addEventListener('click',e=>{
+        var target = e.target || e.srcElement;
+        var wrap = document.querySelector('#archiveBarBox');
+        var inputBar = document.querySelector('#archivesBarInput');
+
+        if(target.id.toLowerCase()==='archivesbarinput'){
+            wrap && wrap.classList.toggle('hide');
+            if(initflag){
+                archives=archiveClick();
+                initflag = false;
+                wrap = document.querySelector('#archiveBarBox');
+            } 
+        }else{
+            wrap && wrap.classList.add('hide'); 
+        }
+        addWrapListener(wrap,inputBar,archives);
+    });
+	
     /*暴露函数供外部使用*/
     var k = { archiveClick:archiveClick };
     Object.keys(k).reduce(function (g, e) {

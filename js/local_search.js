@@ -130,9 +130,9 @@ const showTagOrCate = (tagReArray,cateReArray,$resultMsg) => {
 const showResultUI = (titleResult,contentResult,urlResult,totalNum,$resultContent) => {
 	let resultItem = '';
 
-	resultItem += '<a href="'+ urlResult +'" class="search-result-title">'+ titleResult +'</a>';
+	resultItem += '<a href="'+ urlResult +'" class="search-result-title">'+ titleResult;
 	resultItem += '<p style="float:right">'+ totalNum +' result</p><br/>';
-	resultItem += '<a href="'+ urlResult +'"/><p style="overflow:hidden;white-space:nowrap;text-overflow:ellipsis;">'+contentResult+'</p></a>';
+	resultItem += '<p style="overflow:hidden;white-space:nowrap;text-overflow:ellipsis;">'+contentResult+'</p></a>';
 	const fragment = document.createDocumentFragment();
 	let newChild = document.createElement("li");
 	newChild.innerHTML = resultItem;
@@ -245,52 +245,68 @@ const inputEventFunction = (searchText,$resultMsg,$resultContent) => {
 
 	var $ = document.querySelector.bind(document),
 		mask = $('#mask'),
+		search_form = $('#search-form'),
 		search_wrap = $('#search-wrap'),
 		search_list = $('#search-list'),
-		search_all = $('#search_search'),
-		search_close = $('#search_close'),
-		search_expand = $('#search_expand'),
 		search_box_close = $('#popup-btn-close'),
 		search_box = $('#search-box-popup');
 
 	//Register click event
-	search_all && search_all.addEventListener('click',(event)=>{
-        event = event || window.event;
-        event.stopPropagation ? event.stopPropagation() : event.cancelBubble = true;
-        if(document.body.clientWidth<=768){
-        	mask.classList.add('in');
-        	search_box.classList.add('in');
-        }else{
-			search_wrap.classList.toggle('in');
-			search_list.classList.remove('block');
+	//事件委托
+	search_form && search_form.addEventListener('click',(e)=>{
+        var target = e.target || e.srcElement;
+        if(!!target){
+            if (target.id.toLowerCase()==='search_search' ||
+                target.parentNode.id.toLowerCase()==='search_search') {
+					if(document.body.clientWidth<=768){
+                        mask.classList.add('in');
+                        search_box.classList.add('in');
+					}else{
+						search_wrap.classList.toggle('in');
+						search_list.classList.remove('block');
+					}
+			}else if(target.id.toLowerCase()==='search_close' ||
+				target.parentNode.id.toLowerCase()==='search_close'){
+					if($listInput) $listInput.value = '';
+			}else if(target.id.toLowerCase()==='search_expand' ||
+				target.parentNode.id.toLowerCase()==='search_expand'){
+					mask.classList.contains('in') ? {} : mask.classList.add('in');
+					search_box.classList.add('in');
+			}
 		}
+		e = e || window.e;
+        e.stopPropagation ? e.stopPropagation() : e.cancelBubble = true;
 	});
-	search_close && search_close.addEventListener('click',(event)=>{
-        event = event || window.event;
-        event.stopPropagation ? event.stopPropagation() : event.cancelBubble = true;
-		if($listInput) $listInput.value = '';
-	});
-	search_expand && search_expand.addEventListener('click',(event)=>{
-        event = event || window.event;
-        event.stopPropagation ? event.stopPropagation() : event.cancelBubble = true;
-		mask.classList.contains('in') ? {} : mask.classList.add('in');
-		search_box.classList.add('in');
-	});
-	search_list && search_list.addEventListener('click',(event)=>{
-        event = event || window.event;
-        event.stopPropagation ? event.stopPropagation() : event.cancelBubble = true;
-	});
-	search_box_close && search_box_close.addEventListener('click',(event)=>{
-		event = event || window.event;
-        event.stopPropagation ? event.stopPropagation() : event.cancelBubble = true;
-        mask.classList.remove('in');
-		search_box.classList.remove('in');
-	});
+	search_list && search_list.addEventListener('click',(e)=>{
+        var target = e.target || e.srcElement;
+        e = e || window.e;
+        e.stopPropagation ? e.stopPropagation() : e.cancelBubble = true;
+    });
+    search_box && search_box.addEventListener('click',(e)=>{
+        var count = 3;
+        var target = e.target || e.srcElement; 
+        if (target.id.toLowerCase()==='popup-btn-close' ||
+                target.parentNode.id.toLowerCase()==='popup-btn-close') {
+        	mask.classList.remove('in');
+            search_box.classList.remove('in');
+        }
+        while(target.tagName.toLowerCase()!=='li'&&count>0){
+        	count--;
+        	target=target.parentNode;        	
+        }
+        if(target.tagName.toLowerCase()==='li'){
+            mask.classList.remove('in');
+            search_box.classList.remove('in');
+        }
+        e = e || window.e;
+        e.stopPropagation ? e.stopPropagation() : e.cancelBubble = true;
+    });
 	document.addEventListener('click', function (event){
 		if(search_list.classList.contains('block')){
 			search_list.classList.remove('block');
 		}
 	});
+
 
 	//Register a listen event
 	$listInput.addEventListener('input', inputSwitchList);

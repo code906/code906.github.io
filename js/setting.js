@@ -15,8 +15,7 @@ function getCookie(c_name) {
 
 // 检查cookie 
 function checkCookie(c_name) {     
-    username = getCookie(c_name);     
-    console.log(username);     
+    username = getCookie(c_name);        
     if (username != null && username != "")     
         { return true; }     
     else
@@ -34,12 +33,15 @@ const showSubMenus = (menu) =>{
     }
 };
 
-const reset = (m,article) =>{
-    m.addEventListener('click',()=>{
+const reset = ($) =>{
+    let article = document.querySelectorAll('article');
+    $('#setting-box-ex').on('click',$('#reset'),(event)=>{
         document.cookie = ''; 
-        article.setAttribute('style','');
+        article.forEach((item)=>{
+            item.setAttribute('style','');
+        });
+        setCookie('layout_fontstatus','reset',7);
     });
-    
 }
 
 const reloadCookies = (layout,$) =>{
@@ -70,7 +72,32 @@ const reloadCookies = (layout,$) =>{
     }else{
         layout.classList.remove('container');
     }
-   
+    
+    if(getCookie('theme_mode')){
+        var temp = [];
+        var themes = layout.classList;
+        for(var i=0,len=themes.length;i<len;i++){
+            if((/theme-/g).test(themes[i])){
+                layout.classList.remove(themes[i]);
+                break;
+            }
+        }
+        layout.classList.add(getCookie('theme_mode'));
+    }
+
+    // if(getCookie('read_mode')){
+    //     var temp = [];
+    //     if($('article')){
+    //         var bgs = $('article').classList;
+    //         for(var i=0,len=bgs.length;i<len;i++){
+    //             if((/bg-/g).test(bgs[i])){
+    //                 bgs.classList.remove(bgs[i]);
+    //                 break;
+    //             }
+    //         }
+    //         $('article').classList.add(getCookie('read_mode'));
+    //     }
+    // }
 };
 
 const switchSet = (layout,a,b,c,d) =>{
@@ -93,27 +120,50 @@ const switchSet = (layout,a,b,c,d) =>{
     }); 
 };
 
-const changeFontSize = (layout,a,b) =>{
-    var vnum = 0;
-
-    a.addEventListener('click',()=>{
-        vnum++;
-        layout.forEach((item) =>{
-            item.setAttribute('style','font-size:calc(100% + '+ vnum +'px)');
-        });
+const changeFontSizeAdd = (vnum) =>{
+    var article = document.querySelectorAll('article');
+    article.forEach((item) =>{
+        item.setAttribute('style','font-size:calc(100% + '+ vnum +'px);line-height:calc(100% + '+ vnum +'px);');
     });
+};
 
-    b.addEventListener('click',()=>{
-        if(vnum < 0) {vnum=0;return;}
+const changeFontSizeMinus = (vnum) =>{
+    var article = document.querySelectorAll('article');
+    if(vnum < 0) {vnum=0;return;}
+    article.forEach((item) =>{
+        item.setAttribute('style','font-size:calc(100% + '+ vnum +'px);line-height:calc(100% + '+ vnum +'px);');
+    });
+};
+
+const changeFontSize = ($) =>{
+    var vnum = 0;
+    $('#setting-box-ex').on('click',$('#font-add'),(event)=>{
+        vnum++;
+        if(getCookie('layout_fontstatus') == 'reset'){
+            vnum=0;
+            setCookie('layout_fontstatus','');
+        }
+        changeFontSizeAdd(vnum);
+        event = event || window.event;
+        event.stopPropagation ? event.stopPropagation() : event.cancelBubble = true;  
+    });
+    $('#setting-box-ex').on('click',$('#font-minus'),(event)=>{
         vnum--;
-        layout.forEach((item) =>{
-            item.setAttribute('style','font-size:calc(100% + '+ vnum +'px)');
-        });
+        if(getCookie('layout_fontstatus') == 'reset'){
+            vnum=0;
+            setCookie('layout_fontstatus','');
+        }
+        changeFontSizeMinus(vnum);
+        event = event || window.event;
+        event.stopPropagation ? event.stopPropagation() : event.cancelBubble = true;  
     });
 };
 
 const changeTheme = (layout,theme) =>{
     var oldClass='';
+    if(getCookie('theme_mode')){
+        oldClass = getCookie('theme_mode');
+    }
     theme.forEach((item,i) => {
         item.addEventListener('click',()=>{
             if(item.checked == true && !layout.classList.contains(item.value)){ 
@@ -126,24 +176,92 @@ const changeTheme = (layout,theme) =>{
     });
 };
 
-const switchReadMode = (layout,read) =>{
-    var oldClass='';
-    read.forEach((item,i) => {
-        item.addEventListener('click',()=>{
+const switchReadMode = ($,$$) =>{
+    var readMode = $$('input[name="readMode"]');
+
+    readMode.forEach((item,i) => {
+        $('#setting-box-ex').on('click',item,(event)=>{
             if(item.checked == true ){
-                for(var j=0,len=layout.length;j<len;j++){
-                    if(!layout[j].classList.contains(item.value)){
-                        oldClass != '' && layout[j].classList.remove(oldClass);
-                        layout[j].classList.add(item.value);                        
+                var oldClass='';
+                    oldClass = getCookie('read_mode');
+                var article = $$('article');
+                for(var j=0,len=article.length;j<len;j++){
+                        if(!article[j].classList.contains(item.value)){
+                            oldClass != '' && article[j].classList.remove(oldClass);
+                            article[j].classList.add(item.value);                        
+                        }
                     }
-                }
                 oldClass = item.value;
                 setCookie('read_mode',item.value,7);
             }
         });
     });
+
 };
 
+function dragFunc(id) {
+    var Drag = document.getElementById(id);
+    Drag.onmousedown = function(event) {
+        var ev = event || window.event;
+        event.stopPropagation();
+        var disX = ev.clientX - Drag.offsetLeft;
+        var disY = ev.clientY - Drag.offsetTop;
+        Drag.onmousemove = function(event) {
+            var ev = event || window.event;
+            //Drag.style.left = ev.clientX - disX + "px";//左右拖动
+            Drag.style.top = ev.clientY - disY + "px";//上下拖动
+            Drag.style.cursor = "move";
+        };
+    };
+    Drag.onmouseup = function() {
+        document.onmousemove = null;
+        this.style.cursor = "default";
+    };
+};
+
+//事件委托,原生实现jquery的on函数
+Element.prototype.on = function(type,...arg) {
+    let str,selector,data,callback;
+    type = typeof type == 'object' ? 
+            typeof type.length == 'number' ? type : []
+            : type.split(' ');
+           
+    arg.forEach((item)=>{
+        //str要么是一个false要么是一个字符串要么null
+        if(item){
+            switch(typeof item){
+                case 'string': 
+                    str=item;
+                    break;
+                case 'object':
+                    if(item.toString()=="[object Object]") data=item;
+                    else if(typeof item.length != 'number') selector=item;
+                    break;
+                case 'function':
+                    callback=item;
+                    break;                 
+            }
+        }
+    });    
+
+    function run(e) {
+        if(data)e.data=data;
+        if(str){
+            if(e.target.tagName==str.toUpperCase()){
+                callback&&callback.call(e.target,e)
+            }
+        }else {
+            callback&&callback.call(this,e);
+        }
+    }
+
+    for(let j=0,len=type.length;j<len;j++){
+        if(selector){
+            window.addEventListener ? selector.addEventListener(type[j],run)
+                    : selector.attachEvent('on'+type[j],run);            
+        }
+    }
+};
 
 //Main function entry
 (function () {
@@ -160,12 +278,10 @@ const switchReadMode = (layout,read) =>{
         event = event || window.event;
         event.stopPropagation ? event.stopPropagation() : event.cancelBubble = true;  
     });
-
     ex.addEventListener('click',(event)=>{
         event = event || window.event;
         event.stopPropagation ? event.stopPropagation() : event.cancelBubble = true;  
     });
-
     d.addEventListener('click', (event)=>{
         event = event || window.event;
         var target = event.target || event.srcElement;
@@ -183,14 +299,10 @@ const switchReadMode = (layout,read) =>{
         $('input[name="layout-boxed"]'),
     );
 
-    //sub-menus 位置调整
-
     //手机端sub-menu 展开/收缩
 
     //复位
-    reset($('#reset'),
-        $('article')
-    );
+    reset($);
 
     //主题
     changeTheme($('#alllayout'),
@@ -198,15 +310,15 @@ const switchReadMode = (layout,read) =>{
     );
 
     //字体大小
-    changeFontSize($$('article'),
-        $('#font-add'),
-        $('#font-minus')
-    );
-
+    changeFontSize($);
 
     //阅读模式
-    switchReadMode($$('article'),
-        $$('input[name="readMode"]')
-    );
+    switchReadMode($,$$);
+
+	//可拖动
+    if(window.innerWidth<768){
+         //dragFunc('setting-box');    
+    }
 
 }).call(this);
+

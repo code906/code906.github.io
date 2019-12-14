@@ -9,20 +9,34 @@ if ($.support.pjax) {
   });
 }
 
-/**/
 $(document).on('pjax:complete', function() {
-	pajx_loadtocBtn();//pjax加载完成之后调用函数
+	pjax_loadtocBtn();//pjax加载完成之后调用函数
+  //lazyload();
 });
-function pajx_loadtocBtn(){
+
+function pjax_loadtocBtn(){
   var toc = document.querySelector('#toc'),
       article_toc = document.querySelector('#article_toc');
-  console.log(toc);
 	if(toc){
     article_toc.setAttribute('style','display:block');
   }else{
     article_toc.setAttribute('style','display:none');
   }
 }
+
+
+/*懒加载*/
+// function lazyload() {  
+// //对所有 img 标签进行懒加载        
+//   $("img") && $("img").lazyload({
+//       //设置占位图，我这里选用了一个 loading 的加载动画
+//       placeholder:"../img/img-loading.png",
+//       //加载效果
+//       effect:"fadeIn"
+//     });
+// }
+
+
 
 /*fancybox*/
 /*集成fancybox, 为所有img元素添加父元素*/
@@ -33,20 +47,3 @@ function pajx_loadtocBtn(){
 //     $(element).attr("href", $(this).attr("src"));
 //     $(this).wrap(element);
 // });
-
-
-/*懒加载*/
-$(function() {  
-//对所有 img 标签进行懒加载        
-  $("img").lazyload({
-      //设置占位图，我这里选用了一个 loading 的加载动画
-      placeholder:"../img/img-loading.png",
-      //加载效果
-      effect:"fadeIn"
-    });
-});
-
-
-
-/*代码折叠*/
-

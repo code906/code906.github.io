@@ -9,29 +9,22 @@ const loadScript = (scripts) =>{
     })
 };
 
-//show toc at load first
-const showTocFirst = () => {
-    let toc =  document.querySelector('#toc');
-    let tocBtn = document.querySelector('#article_toc');
-    toc && tocBtn.setAttribute('style','display:block');
-};
 
 //article_toc
 const tocBtn = () =>{
     let body = document.querySelector('body');
     let article = document.querySelector('.post-table');
     if(article && !article.classList.contains('expand')){
-        if(window.innerWidth<768){ body.classList.add('lock'); }  
         article.classList.add('expand');
         article.querySelector('#toc').addEventListener('click',(event)=>{
             event.stopPropagation ? event.stopPropagation() : event.cancelBubble = true;
         });
     }else if(article){
-        body.classList.remove('lock');
         article.classList.remove('expand');
     }
     let event = window.event || arguments.callee.caller.arguments[0];
     event.stopPropagation ? event.stopPropagation() : event.cancelBubble = true;
+    activeTocPos();
 };
 
 //at rate from position scroll to destination
@@ -42,6 +35,7 @@ const goToPos = (position, destination, rate, callback) => {
         return false;
     }
     destination = destination || 0;
+    if(destination<0) destination = 0;
     rate = rate || 2;
     // 不存在原生`requestAnimationFrame`，用`setTimeout`模拟替代
     if (!window.requestAnimationFrame) {
@@ -140,7 +134,7 @@ const closeModal = (el) => {
     el && el.classList.remove('in');
 };
 
-/**/
+/*可视区域数组下标*/
 const findIndex = (entries,sections) =>{
     let index = 0;
     let entry = entries[index];
@@ -182,6 +176,14 @@ const createIntersectionObserver = (toc,marginTop,options) => {
     });
 };
 
+/*启动toc定位功能*/
+const activeTocPos = () =>{
+    var toc = document.querySelector('#toc');
+    var options = registerSidebarTOC(toc);    //注册点击事件
+    var scrollHeight = document.documentElement.scrollHeight;
+    createIntersectionObserver(toc,scrollHeight,options);
+};
+
 /*toc变色折叠*/
 const activateTocByIndex = (toc,target) =>{
     if (target.classList.contains('active-current')) return;
@@ -210,7 +212,7 @@ const registerSidebarTOC = (toc) => {
             var target = document.getElementById(event.currentTarget.getAttribute('href').replace('#', ''));
             if(!target) return;
             var offset = target.getBoundingClientRect().top + window.scrollY;
-            goToPos(null,offset,5,function (val) {
+            goToPos(null,offset-50,5,function (val) {
                 window.scrollTo(0, val);
             });
         });
@@ -229,6 +231,13 @@ const registerSidebarTOC = (toc) => {
     });
 }
 
+//show toc at load first
+const showTocFirst = () => {
+    let toc =  document.querySelector('#toc');
+    let tocBtn = document.querySelector('#article_toc');
+    toc && tocBtn.setAttribute('style','display:block');
+};
+
 //tabs-bar点击，切换下拉功能
 const tabBarBtn = (el) => {
     el.parentNode.parentNode.classList.toggle('expand');
@@ -236,24 +245,46 @@ const tabBarBtn = (el) => {
 
 
 //左侧sidebar点击按钮
-const sideBarToggle = (btn,aside) =>{
+const sideBarToggle = (btn,aside,mask) =>{
     let body = document.querySelector('body');
     btn.addEventListener('click',(event)=>{
         event = event || window.event;
         event.stopPropagation ? event.stopPropagation() : event.cancelBubble = true;
-        
+        aside.addEventListener('click',(event)=>{
+            event.stopPropagation ? event.stopPropagation() : event.cancelBubble = true;
+        });
+        aside.addEventListener('touchmove',(event)=>{
+
+            //event.stopPropagation ? event.stopPropagation() : event.cancelBubble = true;
+        });
+        aside.addEventListener('scroll',(event)=>{
+
+            //event.stopPropagation ? event.stopPropagation() : event.cancelBubble = true;
+        });
         if(aside.classList.contains('expand')){
-            aside.classList.remove('expand');
             body.classList.remove('lock');
+            aside.classList.remove('expand');
         }else{
-            aside.classList.add('expand');
             body.classList.add('lock');
+            aside.classList.add('expand');
+
         }
     });
 };
 
-//自适应页面，调整页面高度匹配absolute高度
-
+//mask遮挡层
+const maskEvent = (mask) =>{
+    mask.addEventListener('touchmove',(event)=>{
+        event.preventDefault();
+        console.log('hfds');
+        event.stopPropagation ? event.stopPropagation() : event.cancelBubble = true;
+    });
+    mask.addEventListener('scroll',(event)=>{
+        event.preventDefault();
+        console.log('hfds');
+        event.stopPropagation ? event.stopPropagation() : event.cancelBubble = true;
+    });
+};
 
 
 (function (w,d) {
@@ -269,13 +300,14 @@ const sideBarToggle = (btn,aside) =>{
         event = ('ontouchstart' in w && /Mobile|Android|iOS|iPhone|iPad|iPod|Windows Phone|KFAPWI/i.test(navigator.userAgent)) ? 'touchstart' : 'click',
         isWX = /micromessenger/i.test(navigator.userAgent);
 
+        /*mask event*/
+        //maskEvent(mask);
+
         /*article_toc*/
         showTocFirst();
 
         /*toc position*/
-        var options = registerSidebarTOC($('#toc'));    //注册点击事件
-        var scrollHeight = document.documentElement.scrollHeight;
-        createIntersectionObserver($('#toc'),scrollHeight,options);
+
 
         /*loading*/
         d.onreadystatechange = function(){
@@ -286,7 +318,7 @@ const sideBarToggle = (btn,aside) =>{
         }
 
         /*点击按钮纹波效果*/
-        if (w.Waves) {
+        if (w.innerWidth>768 && w.Waves) {
             Waves.init();
             Waves.attach('.global-share li', ['waves-block']);
             Waves.attach('.article-tag-list-link, #page-nav a, #page-nav span', ['waves-button']);
@@ -304,25 +336,35 @@ const sideBarToggle = (btn,aside) =>{
         //暴露函数供外部使用
 
         /*sideBar*/
-        sideBarToggle($('#barsIcon'),$('#aside'));
+        sideBarToggle($('#barsIcon'),$('#aside'),mask);
 
         /*阻止冒泡*/
-        $('#wxShare') && $('#wxShare').addEventListener('click',(event)=>{
-            event = event || window.event;
-            event.stopPropagation ? event.stopPropagation() : event.cancelBubble = true;
+        $('#wxShare') && $('#wxShare').addEventListener('click',(e)=>{
+            e = e || window.e;
+            e.stopPropagation ? e.stopPropagation() : e.cancelBubble = true;
         });
 
         /*document*/
-        document.addEventListener('click',(event)=>{
+        document.addEventListener('click',(e)=>{
             /*点击其他关闭dialog*/
             $('#aside') && $('#aside').classList.remove('expand');
+            body.classList.remove('lock');
             if(window.innerWidth<768){$('#toc') && $('#toc').parentNode.classList.remove('expand');}
             $('#globalShare') && $('#globalShare').classList.remove('in');
             $('.modal.in') && $('.modal.in').classList.remove('in');
             $('#barShare') && $('#barShare').classList.remove('in');
             
         });
-
+        document.addEventListener('scroll',(event)=>{
+            event = event || window.event;
+            event.stopPropagation ? event.stopPropagation() : event.cancelBubble = true;
+            event.preventDefault();
+        });   
+        document.addEventListener('touchmove',(event)=>{
+            event = event || window.event;
+            event.stopPropagation ? event.stopPropagation() : event.cancelBubble = true;
+            event.preventDefault();
+        });   
         /*暴露函数供外部使用*/
         var k = { 
                   tabBarBtn:tabBarBtn , 

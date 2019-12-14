@@ -5,8 +5,8 @@
     
     <entry>
       <title>hexo笔记</title>
-      <link href="/2019/12/03/hexo%E7%AC%94%E8%AE%B0/"/>
-      <url>/2019/12/03/hexo%E7%AC%94%E8%AE%B0/</url>
+      <link href="/2019/12/14/hexo%E7%AC%94%E8%AE%B0/"/>
+      <url>/2019/12/14/hexo%E7%AC%94%E8%AE%B0/</url>
       
         <content type="html"><![CDATA[<p> find()方法，用于找出第一个符合条件的数组成员。它的参数是一个回调函数，所有数组成员依次执行该回调函数，直到找出第一个返回值为true的成员，然后返回该成员。如果没有符合条件的成员，则返回undefined。 </p><p>hasOwnProperty判断是否存在某个属性</p><p> parseInt() 方法用于将字符串参数作为有符号的十进制整数进行解析。 </p>]]></content>
       
@@ -35,11 +35,24 @@
     
     
     <entry>
-      <title>Hello World</title>
-      <link href="/2019/12/03/hello-world%20-%20%E5%89%AF%E6%9C%AC/"/>
-      <url>/2019/12/03/hello-world%20-%20%E5%89%AF%E6%9C%AC/</url>
+      <title>1</title>
+      <link href="/2019/12/14/1/"/>
+      <url>/2019/12/14/1/</url>
       
-        <content type="html"><![CDATA[<h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><p class="code-caption" data-lang="bash" data-line_number="frontend" data-trim_indent="backend" data-label_position="outer" data-labels_left="Code" data-labels_right=":" data-labels_copy="Copy Code"><span class="code-caption-label"></span><a class="code-caption-copy">Copy Code</a></p><pre><code class="bash">$ hexo new &quot;My New Post&quot;</code></pre><p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p><h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><p class="code-caption" data-lang="bash" data-line_number="frontend" data-trim_indent="backend" data-label_position="outer" data-labels_left="Code" data-labels_right=":" data-labels_copy="Copy Code"><span class="code-caption-label"></span><a class="code-caption-copy">Copy Code</a></p><pre><code class="bash">$ hexo server</code></pre><p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p><h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><p class="code-caption" data-lang="bash" data-line_number="frontend" data-trim_indent="backend" data-label_position="outer" data-labels_left="Code" data-labels_right=":" data-labels_copy="Copy Code"><span class="code-caption-label"></span><a class="code-caption-copy">Copy Code</a></p><pre><code class="bash">$ hexo generate</code></pre><p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p><h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><p class="code-caption" data-lang="bash" data-line_number="frontend" data-trim_indent="backend" data-label_position="outer" data-labels_left="Code" data-labels_right=":" data-labels_copy="Copy Code"><span class="code-caption-label"></span><a class="code-caption-copy">Copy Code</a></p><pre><code class="bash">$ hexo deploy</code></pre><p>More info: <a href="https://hexo.io/docs/one-command-deployment.html" target="_blank" rel="noopener">Deployment</a></p>]]></content>
+        <content type="html"><![CDATA[<h1 id="1级-test1"><a href="#1级-test1" class="headerlink" title="1级 test1"></a>1级 test1</h1><h2 id="123"><a href="#123" class="headerlink" title="123"></a>123</h2><table><thead><tr><th align="left">a</th><th>a</th><th>a</th></tr></thead><tbody><tr><td align="left">a</td><td>s</td><td>a</td></tr><tr><td align="left">a</td><td>a</td><td>s</td></tr><tr><td align="left">a</td><td>s</td><td>a</td></tr></tbody></table><figure class="image-bubble">                <a data-fancybox="gallery" href="http://www.baidu.com/img/bd_logo1.png?where=super" target="_blank" rel="noopener" no-pjax data-type="image">                    <img src="http://www.baidu.com/img/bd_logo1.png?where=super" alt="" title="">                </a>                <div class="image-caption"></div>            </figure><p class="code-caption" data-lang="css" data-line_number="frontend" data-trim_indent="backend" data-label_position="outer" data-labels_left="Code" data-labels_right=":" data-labels_copy="Copy Code"><span class="code-caption-label"></span><a class="code-caption-copy">Copy Code</a></p><pre class="line-numbers language-css"><code class="language-css">&lt;!DOCTYPE html>&lt;html>&lt;head>    &lt;title>&lt;<span class="token number">%</span>- theme<span class="token number">.</span>title <span class="token number">%</span>>&lt;/title>    &lt;meta charset=<span class="token string">"utf-8"</span>>    &lt;!-- 引入配置文件 -->    &lt;<span class="token number">%</span>- <span class="token function">css</span><span class="token punctuation">(</span><span class="token string">'css/main.css'</span><span class="token punctuation">)</span> <span class="token number">%</span>>    &lt;!-- 字体图片库 -->    &lt;<span class="token number">%</span>- <span class="token function">css</span><span class="token punctuation">(</span><span class="token string">'lib/font-awesome/css/font-awesome.min.css'</span><span class="token punctuation">)</span> <span class="token number">%</span>>    &lt;!-- 代码高亮库 -->    &lt;<span class="token number">%</span>- <span class="token function">css</span><span class="token punctuation">(</span><span class="token string">'/lib/highlight/styles/atom-one-dark'</span><span class="token punctuation">)</span> <span class="token number">%</span>>&lt;/head>&lt;body>    &lt;div id=<span class="token string">"main"</span>>        &lt;!-- 引入侧边栏 -->        &lt;aside>            &lt;<span class="token number">%</span>- <span class="token function">include</span><span class="token punctuation">(</span><span class="token string">'aside.ejs'</span><span class="token punctuation">)</span> <span class="token number">%</span>>        &lt;/aside>        &lt;!-- 引入导航 -->        &lt;nav>            &lt;<span class="token number">%</span>- <span class="token function">include</span><span class="token punctuation">(</span><span class="token string">'nav.ejs'</span><span class="token punctuation">)</span> <span class="token number">%</span>>        &lt;/nav>        &lt;!-- 引入正文 -->        &lt;div id=<span class="token string">"content"</span>>            &lt;<span class="token number">%</span>- body <span class="token number">%</span>>        &lt;/div>    &lt;/div>    &lt;!-- 引入 js 文件 -->    &lt;<span class="token number">%</span>- <span class="token function">js</span><span class="token punctuation">(</span><span class="token string">'js/main.js'</span><span class="token punctuation">)</span> <span class="token number">%</span>>    &lt;!-- 引入代码高亮的 js -->    &lt;<span class="token number">%</span>- <span class="token function">js</span><span class="token punctuation">(</span><span class="token string">'/lib/highlight/highlight.pack.js'</span><span class="token punctuation">)</span> <span class="token number">%</span>>    &lt;script>hljs<span class="token number">.</span><span class="token function">initHighlightingOnLoad</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>&lt;/script>&lt;/body>&lt;/html><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre><p>[]: </p>]]></content>
+      
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>Hello World</title>
+      <link href="/2019/12/14/hello-world%20-%20%E5%89%AF%E6%9C%AC/"/>
+      <url>/2019/12/14/hello-world%20-%20%E5%89%AF%E6%9C%AC/</url>
+      
+        <content type="html"><![CDATA[<h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><p class="code-caption" data-lang="bash" data-line_number="frontend" data-trim_indent="backend" data-label_position="outer" data-labels_left="Code" data-labels_right=":" data-labels_copy="Copy Code"><span class="code-caption-label"></span><a class="code-caption-copy">Copy Code</a></p><pre class="line-numbers language-bash"><code class="language-bash">$ hexo new <span class="token string">"My New Post"</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre><p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p><h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><p class="code-caption" data-lang="bash" data-line_number="frontend" data-trim_indent="backend" data-label_position="outer" data-labels_left="Code" data-labels_right=":" data-labels_copy="Copy Code"><span class="code-caption-label"></span><a class="code-caption-copy">Copy Code</a></p><pre class="line-numbers language-bash"><code class="language-bash">$ hexo server<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre><p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p><h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><p class="code-caption" data-lang="bash" data-line_number="frontend" data-trim_indent="backend" data-label_position="outer" data-labels_left="Code" data-labels_right=":" data-labels_copy="Copy Code"><span class="code-caption-label"></span><a class="code-caption-copy">Copy Code</a></p><pre class="line-numbers language-bash"><code class="language-bash">$ hexo generate<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre><p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p><h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><p class="code-caption" data-lang="bash" data-line_number="frontend" data-trim_indent="backend" data-label_position="outer" data-labels_left="Code" data-labels_right=":" data-labels_copy="Copy Code"><span class="code-caption-label"></span><a class="code-caption-copy">Copy Code</a></p><pre class="line-numbers language-bash"><code class="language-bash">$ hexo deploy<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre><p>More info: <a href="https://hexo.io/docs/one-command-deployment.html" target="_blank" rel="noopener">Deployment</a></p>]]></content>
       
       
       <categories>
@@ -92,27 +105,14 @@
     </entry>
     
     
-    
-    <entry>
-      <title>1</title>
-      <link href="/2019/12/03/1/"/>
-      <url>/2019/12/03/1/</url>
-      
-        <content type="html"><![CDATA[<h1 id="1级-test1"><a href="#1级-test1" class="headerlink" title="1级 test1"></a>1级 test1</h1><h2 id="123"><a href="#123" class="headerlink" title="123"></a>123</h2><table><thead><tr><th align="left">a</th><th>a</th><th>a</th></tr></thead><tbody><tr><td align="left">a</td><td>s</td><td>a</td></tr><tr><td align="left">a</td><td>a</td><td>s</td></tr><tr><td align="left">a</td><td>s</td><td>a</td></tr></tbody></table><figure class="image-bubble">                <a data-fancybox="gallery" href="http://www.baidu.com/img/bd_logo1.png?where=super" target="_blank" rel="noopener" no-pjax data-type="image">                    <img src="http://www.baidu.com/img/bd_logo1.png?where=super" alt="" title="">                </a>                <div class="image-caption"></div>            </figure><p class="code-caption" data-lang="css" data-line_number="frontend" data-trim_indent="backend" data-label_position="outer" data-labels_left="Code" data-labels_right=":" data-labels_copy="Copy Code"><span class="code-caption-label"></span><a class="code-caption-copy">Copy Code</a></p><pre><code class="css">body{    color:red;}.mm{    color:gray}</code></pre><p>[]: </p>]]></content>
-      
-      
-      
-    </entry>
-    
-    
   
   
     
     
     <entry>
-      <title>所有标签</title>
-      <link href="/tags/index.html"/>
-      <url>/tags/index.html</url>
+      <title></title>
+      <link href="/lab/index.html"/>
+      <url>/lab/index.html</url>
       
         <content type="html"><![CDATA[]]></content>
       
@@ -124,6 +124,17 @@
       <title>所有分类</title>
       <link href="/categories/index.html"/>
       <url>/categories/index.html</url>
+      
+        <content type="html"><![CDATA[]]></content>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>所有标签</title>
+      <link href="/tags/index.html"/>
+      <url>/tags/index.html</url>
       
         <content type="html"><![CDATA[]]></content>
       

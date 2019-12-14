@@ -4,6 +4,7 @@
     
         <head>
     
+    
 
     
 
@@ -24,13 +25,13 @@
     
     
     <meta name="keywords" content="tag,other,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15">
-    <meta name="description" content="Create a new postCopy Code  $ hexo new &amp;quot;My New Post&amp;quot; More info: Writing Run serverCopy Code  $ hexo server More info: Server Generate static filesCopy Code  $ hexo generate More info: Genera">
+    <meta name="description" content="Create a new postCopy Code  $ hexo new &quot;My New Post&quot; More info: Writing Run serverCopy Code  $ hexo server More info: Server Generate static filesCopy Code  $ hexo generate More info: Generating Deplo">
 <meta name="keywords" content="tag,other,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Hello World">
-<meta property="og:url" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2019&#x2F;12&#x2F;03&#x2F;hello-world%20-%20%E5%89%AF%E6%9C%AC&#x2F;index.html">
+<meta property="og:url" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2019&#x2F;12&#x2F;14&#x2F;hello-world%20-%20%E5%89%AF%E6%9C%AC&#x2F;index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="Create a new postCopy Code  $ hexo new &amp;quot;My New Post&amp;quot; More info: Writing Run serverCopy Code  $ hexo server More info: Server Generate static filesCopy Code  $ hexo generate More info: Genera">
+<meta property="og:description" content="Create a new postCopy Code  $ hexo new &quot;My New Post&quot; More info: Writing Run serverCopy Code  $ hexo server More info: Server Generate static filesCopy Code  $ hexo generate More info: Generating Deplo">
 <meta property="og:locale" content="en">
 <meta property="og:image" content="https:&#x2F;&#x2F;faithlove.github.io&#x2F;pic&#x2F;2018&#x2F;HexoThumb&#x2F;topPicPre.png">
 <meta property="og:updated_time" content="2019-11-22T12:53:49.310Z">
@@ -38,11 +39,13 @@
 <meta name="twitter:image" content="https:&#x2F;&#x2F;faithlove.github.io&#x2F;pic&#x2F;2018&#x2F;HexoThumb&#x2F;topPicPre.png">
 
     
-    <link rel="shortcut icon" href="/favicon.ico">
-
+        <link rel="alternate" type="application/atom+xml" title="Hexo" href="atom.xml">
     
-    <link rel="stylesheet" href="/lib/css/jquery.fancybox.min.css">
-
+    <link rel="shortcut icon" href="/favicon.ico">
+    
+    
+        <link rel="stylesheet" href="/lib/css/jquery.fancybox.min.css">
+    
     <link rel="stylesheet" href="/fonts/less/font-awesome.css">
     <link rel="stylesheet" href="/css/style.css">
     
@@ -51,16 +54,19 @@
     <link rel="stylesheet" href="/css/container_icon.css">
     <link rel="stylesheet" href="/css/container.css">
     
-
+    <link rel="stylesheet" href="/css/widget/waves.css">
+    <link rel="stylesheet" href="/css/widget/loading.css">
+    <link rel="stylesheet" href="/css/layout/about.css">
     <link rel="stylesheet" href="/css/layout/post_list.css">
     <link rel="stylesheet" href="/css/layout/archive_list.css">
     <link rel="stylesheet" href="/css/layout/tag_list.css">
     <link rel="stylesheet" href="/css/layout/category_list.css">
     <link rel="stylesheet" href="/css/layout/tabs_bar.css">
 
-
+    <link rel="stylesheet" href="/css/layout/setting_box.css">
     <link rel="stylesheet" href="/css/post/article.css">
-    <link rel="stylesheet" href="/css/post/highlight.css">
+    <link rel="stylesheet" href="/css/common_color.css">  
+
     <link rel="stylesheet" href="/css/post/share.css">
     <link rel="stylesheet" href="/css/post/reward.css">
 
@@ -68,27 +74,22 @@
     <link rel="stylesheet" href="/css/search/search_box.css">
     <link rel="stylesheet" href="/css/search/search_list.css">
 
-    <link rel="stylesheet" href="/css/layout/setting_box.css">
-    <link rel="stylesheet" href="/css/common_color.css">    
-
     <link rel="stylesheet" href="/css/layout/archive_bar.css">
     <link rel="stylesheet" href="/css/layout/gallery_list.css">
-    <link rel="stylesheet" href="/css/widget/loading.css">
-    <link rel="stylesheet" href="/css/widget/waves.css">
-
+    
     <link rel="stylesheet" href="/css/layout/friends_chain.css">
     <link rel="stylesheet" href="/css/layout/dialog.css">
     <link rel="stylesheet" href="/css/post/code_box.css">
 
-<link rel="stylesheet" href="//cdn.bootcss.com/highlight.js/9.2.0/styles/github.min.css">
     <script>window.lazyScripts=[]</script>
 
     <!-- custom head -->
     
 
-</head>
+<link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css">
+<link rel="stylesheet" href="/css/prism-line-numbers.css" type="text/css"></head>
 
-        <body>
+        <body style="height:100%">
             <div class="app container  app-header-fixed" id="alllayout">
                 <div id="loading" class="active"></div>
 
@@ -111,7 +112,7 @@
             </a>
         </span>
         <div class="flex-row app-center flex-justify-end">
-            <form class="search-form nav-item">
+            <form id="search-form" class="search-form nav-item">
                 
 
                     <div class="search-wrap in flex-row" id="search-wrap">  
@@ -153,7 +154,7 @@
 <div class="global-share" id="globalShare">
     <ul class="reset share-icons">
       <li>
-        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://yoursite.com/2019/12/03/hello-world%20-%20%E5%89%AF%E6%9C%AC/&title=《Hello World》 — Hexo&pic=https://faithlove.github.io/pic/2018/HexoThumb/topPicPre.png" data-title="微博">
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://yoursite.com/2019/12/14/hello-world%20-%20%E5%89%AF%E6%9C%AC/&title=《Hello World》 — Hexo&pic=https://faithlove.github.io/pic/2018/HexoThumb/topPicPre.png" data-title="微博">
           <i class="fa fa-weibo" aria-hidden="true"></i>
         </a>
       </li>
@@ -164,22 +165,22 @@
         </a>
       </li>
       <li>
-        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://yoursite.com/2019/12/03/hello-world%20-%20%E5%89%AF%E6%9C%AC/&title=《Hello World》 — Hexo&source=" data-title=" QQ">
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://yoursite.com/2019/12/14/hello-world%20-%20%E5%89%AF%E6%9C%AC/&title=《Hello World》 — Hexo&source=" data-title=" QQ">
           <i class="fa fa-qq" aria-hidden="true"></i>
         </a>
       </li>
       <li>
-        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://yoursite.com/2019/12/03/hello-world%20-%20%E5%89%AF%E6%9C%AC/" data-title=" Facebook">
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://yoursite.com/2019/12/14/hello-world%20-%20%E5%89%AF%E6%9C%AC/" data-title=" Facebook">
           <i class="fa fa-facebook" aria-hidden="true"></i>
         </a>
       </li>
       <li>
-        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Hello World》 — Hexo&url=http://yoursite.com/2019/12/03/hello-world%20-%20%E5%89%AF%E6%9C%AC/&via=http://yoursite.com" data-title=" Twitter">
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Hello World》 — Hexo&url=http://yoursite.com/2019/12/14/hello-world%20-%20%E5%89%AF%E6%9C%AC/&via=http://yoursite.com" data-title=" Twitter">
           <i class="fa fa-twitter" aria-hidden="true"></i>
         </a>
       </li>
       <li>
-        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://yoursite.com/2019/12/03/hello-world%20-%20%E5%89%AF%E6%9C%AC/" data-title=" Google+">
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://yoursite.com/2019/12/14/hello-world%20-%20%E5%89%AF%E6%9C%AC/" data-title=" Google+">
           <i class="fa fa-google-plus" aria-hidden="true"></i>
         </a>
       </li>
@@ -194,10 +195,10 @@
             <div class="modal-header">
                 <button type="button" onClick="BLOG.closeModal(this)"
                 class="close" data-dismiss="modal"><i class="fa fa-times" aria-hidden="true"></i></button>
-                <h4 class="modal-title">扫一扫，分享到微信</h4>
+                <span class="modal-title">扫一扫，分享到微信</span>
             </div>
             <div class="modal-body">
-                <img class="nofancybox" src="//api.qrserver.com/v1/create-qr-code/?data=http://yoursite.com/2019/12/03/hello-world%20-%20%E5%89%AF%E6%9C%AC/" alt="微信分享二维码">
+                <img class="nofancybox" src="//api.qrserver.com/v1/create-qr-code/?data=http://yoursite.com/2019/12/14/hello-world%20-%20%E5%89%AF%E6%9C%AC/" alt="微信分享二维码">
             </div>
         </div>
     </div>
@@ -207,6 +208,12 @@
                     
                 </div>
             
+            
+                <div class="nav-item">
+                    <a href="atom.xml" target="_blank" class="" id="menuFeed">
+                        <i class="fa fa-feed fa-lg" aria-hidden="true"></i>
+                    </a>
+                </div>
             
         </div>
         
@@ -340,18 +347,29 @@
         
 <article id="post-hello-world - 副本"
   class="post-article article-type-post " itemprop="blogPost">
- 
+    
+    
+        <div class="post-list-gallery" >
+            
+                <a data-fancybox="gallery" href="https://faithlove.github.io/pic/2018/HexoThumb/topPicPre.png" target="_blank" rel="noopener">
+                    <img src="https://faithlove.github.io/pic/2018/HexoThumb/topPicPre.png" class="post-list-img" itemprop="postListImgUrl"/>
+                </a>
+            
+        </div>
+    
     <div class="post-card">
         <h1 class="post-card-title">Hello World</h1>
         <div class="post-meta">
             <time class="post-meta-date">
                 <i class="fa fa-calendar-o" aria-hidden="true"></i>
-                <time class="post-time" title="2019-12-03 14:13:29" datetime="2019-12-03T06:13:29.560Z"  itemprop="datePublished">2019-12-03</time>
+                <span class="post-time" title="2019-12-14 14:18:14" datetime="2019-12-14T06:18:14.273Z"  itemprop="datePublished">2019-12-14</span>
 
             </time>
-            <span class="flex-row">
-                <i class="fa fa-flag" aria-hidden="true"></i>
-                
+            <!-- post categories -->
+            
+                <span class="post-meta-categories">
+                    <i class="fa fa-flag" aria-hidden="true"></i>
+                    
 
 		
                     <ul class="article-category-list">
@@ -371,15 +389,36 @@
 
 
 
-            </span>
-            <span class="flex-row">
-                <i class="fa fa-tag" aria-hidden="true"></i>
-                
+                </span>
+            
+            <!-- post tags -->
+            
+                <span class="post-meta-tags">
+                    <i class="fa fa-tag" aria-hidden="true"></i>
+                    
 	<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/1/" rel="tag">1</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/10/" rel="tag">10</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/11/" rel="tag">11</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/12/" rel="tag">12</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/13/" rel="tag">13</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/14/" rel="tag">14</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/15/" rel="tag">15</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/2/" rel="tag">2</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/3/" rel="tag">3</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/4/" rel="tag">4</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/5/" rel="tag">5</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/6/" rel="tag">6</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/7/" rel="tag">7</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/8/" rel="tag">8</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/9/" rel="tag">9</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/other/" rel="tag">other</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/tag/" rel="tag">tag</a></li></ul>
 
-            </span>
+                </span>
             
-<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
+            
+
+
+    <span class="post-meta-other">
+        <i class="fa fa-keyboard-o"></i>
+        <span class="post-meta-item">  字数统计: </span>
+        <span class="post-count">40字</span>
+    </span>
+
+    <span class="post-meta-other">
+      	&nbsp; | &nbsp;
+        <i class="fa fa-hourglass-half"></i>
+        <span class="post-meta-item">  阅读时长: </span>
+        <span class="post-count">1分</span>
+    </span>
+
+
+            
+<span id="busuanzi_container_page_pv" class="post-meta-other" title="文章总阅读量" style='display:none'>
    <i class="fa fa-eye" aria-hidden="true"></i>
    <span id="busuanzi_value_page_pv"></span>
 </span>
@@ -389,19 +428,19 @@
         <div class="post-content" id="post-content" itemprop="postContent">
             <h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><p class="code-caption" data-lang="bash" data-line_number="frontend" data-trim_indent="backend" data-label_position="outer" data-labels_left="Code" data-labels_right=":" data-labels_copy="Copy Code"><span class="code-caption-label"></span><a class="code-caption-copy">Copy Code</a></p>
 
-<pre><code class="bash">$ hexo new &quot;My New Post&quot;</code></pre>
+<pre class="line-numbers language-bash"><code class="language-bash">$ hexo new <span class="token string">"My New Post"</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
 <h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><p class="code-caption" data-lang="bash" data-line_number="frontend" data-trim_indent="backend" data-label_position="outer" data-labels_left="Code" data-labels_right=":" data-labels_copy="Copy Code"><span class="code-caption-label"></span><a class="code-caption-copy">Copy Code</a></p>
 
-<pre><code class="bash">$ hexo server</code></pre>
+<pre class="line-numbers language-bash"><code class="language-bash">$ hexo server<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
 <h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><p class="code-caption" data-lang="bash" data-line_number="frontend" data-trim_indent="backend" data-label_position="outer" data-labels_left="Code" data-labels_right=":" data-labels_copy="Copy Code"><span class="code-caption-label"></span><a class="code-caption-copy">Copy Code</a></p>
 
-<pre><code class="bash">$ hexo generate</code></pre>
+<pre class="line-numbers language-bash"><code class="language-bash">$ hexo generate<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
 <h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><p class="code-caption" data-lang="bash" data-line_number="frontend" data-trim_indent="backend" data-label_position="outer" data-labels_left="Code" data-labels_right=":" data-labels_copy="Copy Code"><span class="code-caption-label"></span><a class="code-caption-copy">Copy Code</a></p>
 
-<pre><code class="bash">$ hexo deploy</code></pre>
+<pre class="line-numbers language-bash"><code class="language-bash">$ hexo deploy<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <p>More info: <a href="https://hexo.io/docs/one-command-deployment.html" target="_blank" rel="noopener">Deployment</a></p>
 
         </div>
@@ -416,7 +455,7 @@
 
 
         
-        这里可以写作者留言，标签和 hexo 中所有变量及辅助函数等均可调用，示例：<a href="/2019/12/03/hello-world%20-%20%E5%89%AF%E6%9C%AC/" target="_blank" rel="external">http://yoursite.com/2019/12/03/hello-world%20-%20%E5%89%AF%E6%9C%AC/</a>
+        这里可以写作者留言，标签和 hexo 中所有变量及辅助函数等均可调用，示例：<a href="/2019/12/14/hello-world%20-%20%E5%89%AF%E6%9C%AC/" target="_blank" rel="external">http://yoursite.com/2019/12/14/hello-world%20-%20%E5%89%AF%E6%9C%AC/</a>
         
     </div>
     
@@ -441,7 +480,7 @@
                 <div class="modal-header">
                     <button type="button" onClick="BLOG.closeModal(this)"
                         class="close" data-dismiss="modal"><i class="fa fa-times" aria-hidden="true"></i></button>
-                    <h4 class="modal-title">reward</h4>
+                    <span class="modal-title">reward</span>
                 </div>
                 <div class="modal-body">
                     <div class="reward-content">
@@ -485,7 +524,7 @@
 <div class="bar-share" id="barShare">
     <ul class="reset share-icons">
       <li>
-        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://yoursite.com/2019/12/03/hello-world%20-%20%E5%89%AF%E6%9C%AC/&title=《Hello World》 — Hexo&pic=https://faithlove.github.io/pic/2018/HexoThumb/topPicPre.png" data-title="微博">
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://yoursite.com/2019/12/14/hello-world%20-%20%E5%89%AF%E6%9C%AC/&title=《Hello World》 — Hexo&pic=https://faithlove.github.io/pic/2018/HexoThumb/topPicPre.png" data-title="微博">
           <i class="fa fa-weibo" aria-hidden="true"></i>
         </a>
       </li>
@@ -496,22 +535,22 @@
         </a>
       </li>
       <li>
-        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://yoursite.com/2019/12/03/hello-world%20-%20%E5%89%AF%E6%9C%AC/&title=《Hello World》 — Hexo&source=" data-title=" QQ">
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://yoursite.com/2019/12/14/hello-world%20-%20%E5%89%AF%E6%9C%AC/&title=《Hello World》 — Hexo&source=" data-title=" QQ">
           <i class="fa fa-qq" aria-hidden="true"></i>
         </a>
       </li>
       <li>
-        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://yoursite.com/2019/12/03/hello-world%20-%20%E5%89%AF%E6%9C%AC/" data-title=" Facebook">
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://yoursite.com/2019/12/14/hello-world%20-%20%E5%89%AF%E6%9C%AC/" data-title=" Facebook">
           <i class="fa fa-facebook" aria-hidden="true"></i>
         </a>
       </li>
       <li>
-        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Hello World》 — Hexo&url=http://yoursite.com/2019/12/03/hello-world%20-%20%E5%89%AF%E6%9C%AC/&via=http://yoursite.com" data-title=" Twitter">
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Hello World》 — Hexo&url=http://yoursite.com/2019/12/14/hello-world%20-%20%E5%89%AF%E6%9C%AC/&via=http://yoursite.com" data-title=" Twitter">
           <i class="fa fa-twitter" aria-hidden="true"></i>
         </a>
       </li>
       <li>
-        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://yoursite.com/2019/12/03/hello-world%20-%20%E5%89%AF%E6%9C%AC/" data-title=" Google+">
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://yoursite.com/2019/12/14/hello-world%20-%20%E5%89%AF%E6%9C%AC/" data-title=" Google+">
           <i class="fa fa-google-plus" aria-hidden="true"></i>
         </a>
       </li>
@@ -532,23 +571,16 @@
     </div>
 
     
-<nav class="post-nav flex-row flex-justify-between">
+<nav class="post-nav ">
   
     <div class="waves-block waves-effect prev">
-      <a href="/2019/12/03/hexo%E7%AC%94%E8%AE%B0/" id="post-prev" class="post-nav-link">
+      <a href="/2019/12/14/1/" id="post-prev" class="post-nav-link">
         <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
-        <h4 class="title">hexo笔记</h4>
+        <h4 class="title">1</h4>
       </a>
     </div>
   
 
-  
-    <div class="waves-block waves-effect next">
-      <a href="/2019/12/03/1/" id="post-next" class="post-nav-link">
-        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
-        <h4 class="title">1</h4>
-      </a>
-    </div>
   
 </nav>
 
@@ -580,23 +612,26 @@
     <aside id="toc" class="post-widget">
         <nav class="post-toc-wrap " id="post-toc">
             <title style="display: block; cursor: pointer;">TOC</title>
-            <ol class="post-toc"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Create-a-new-post"><span class="post-toc-number">1.</span> <span class="post-toc-text">Create a new post</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Run-server"><span class="post-toc-number">2.</span> <span class="post-toc-text">Run server</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Generate-static-files"><span class="post-toc-number">3.</span> <span class="post-toc-text">Generate static files</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Deploy-to-remote-sites"><span class="post-toc-number">4.</span> <span class="post-toc-text">Deploy to remote sites</span></a></li></ol>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Create-a-new-post"><span class="post-toc-text">Create a new post</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Run-server"><span class="post-toc-text">Run server</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Generate-static-files"><span class="post-toc-text">Generate static files</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Deploy-to-remote-sites"><span class="post-toc-text">Deploy to remote sites</span></a></li></ol>
         </nav>
     </aside>
 
 
+<textarea id="inputcopy" style="position:absolute;left:0;opacity:0;z-index:-100;"></textarea>
 <script>
 //代码折叠，鉴于代码块有pre、table、ul形式标签
 	var html1 = '<div class="code-area-wrap">' +
-		'<div  class="codetitle flex">' +
-		'<span class="code-left">',
+		'<span  class="codetitle flex">' +
+		'<span class="code-left" onclick="codeFold(this)">',
 		html2 =  '</span>' +
-		'<p class="code-center"></p>' +
-		'<span class="code-right"><i class="fa fa-clipboard" aria-hidden="true"></i></span>' +
-		'</div>';
+		'<span class="code-center"></span>' +
+		'<span class="code-right" onclick="copyText(this)"><i class="fa fa-clipboard" aria-hidden="true"></i></span>' +
+		'</span>';
 
 	var code = document.querySelectorAll('.highlight');
-	if(code){
+	var pre = document.querySelectorAll('pre');
+
+	if(code.length>0){
 		code.forEach((item,i)=>{
 			var language = item.className.replace('highlight','');
 			var temp = html1;
@@ -606,8 +641,53 @@
 			temp += '</div>';
  			item.outerHTML = temp;
 		});
+	}else if(pre.length>0){
+		pre.forEach((item,i)=>{
+			var m = item.querySelector('code');
+			var language = m.className;
+			var temp = html1;
+			temp += language;
+			temp += html2;
+			temp += item.outerHTML;
+			temp += '</div>';
+ 			item.outerHTML = temp;
+		});
+	}
+
+	function copyText(el){
+		var count = 5;
+		while(!el.classList.contains('code-area-wrap') && count>0){
+			count--;
+			el = el.parentNode;
+		}
+		if(el){
+			var code = el.querySelector('code');
+			var input = document.getElementById("inputcopy");
+			if(input && code){
+				input.value = code.innerText;
+				input.select();
+				document.execCommand("copy");	
+			}
+		}
+	};
+
+	function codeFold(el){
+		var count = 3;
+		while(!el.classList.contains('codetitle') && count>0){
+			count--;
+			el = el.parentNode;
+		}
+		
+		if(el){
+			var pre = el.nextSibling;
+			if(pre.tagName == 'PRE'){
+				pre.classList.toggle('none');
+			}
+		}
 	}
 </script>
+
+
 
 
     </div>
@@ -636,7 +716,7 @@
         
         <div class="github-badge">
             <span class="badge-subject">Theme</span>
-            <span class="badge-value "><a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank" rel="noopener">indigo</a></span>
+            <span class="badge-value "><a href="https://github.com/code906/hexo-theme-koko" target="_blank" rel="noopener">koko</a></span>
         </div>
         </p>
     </div>
@@ -644,8 +724,7 @@
 
                 <div class="mask" id="mask"></div>
 
-
-<div class="setting-box flew-colum">
+<div id="setting-box" class="setting-box flew-colum">
 	<button id="article_toc" onclick="BLOG.tocBtn()"
 		class="btn btn-default btn-fold" style="display:none">
 		<i class="fa fa-bars" aria-hidden="true"></i>
@@ -787,13 +866,13 @@
 
 
                 <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
-<script src="//cdn.bootcss.com/highlight.js/9.2.0/highlight.min.js"></script>
 
 <script src="/lib/js/jquery.min.js"></script>
 <script src="/lib/js/jquery.pjax.min.js"></script>
 <script src="/lib/js/jquery.fancybox.min.js"></script>
 <script type="text/javascript" src="http://apps.bdimg.com/libs/jquery-lazyload/1.9.5/jquery.lazyload.min.js"></script>
 <script  src="/js/pjax.js" async></script>
+
 
 
 <script>
@@ -853,6 +932,27 @@ var CONFIG = {
 	<script type="module" src="/js/local_search.js" async></script>
 
 
+
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+});
+</script>
+
+<script async src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML" async></script>
 
 
 
