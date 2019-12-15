@@ -164,7 +164,7 @@ var s = {
 
     searchResultUl:function(monthN,monthC,year){
         var str;
-        str = '<li title = '+ year +'/'+ monthN +'><b class="archiveBarname">' + year + '</b><b class="archiveBarspell">' + monthC + '</b></li>';
+        str = '<li title = '+ year +'/'+ monthN +' data-type="months"><b class="archiveBarname">' + year + '</b><b class="archiveBarspell">' + monthC + '</b></li>';
         return str;
     },
 
@@ -207,6 +207,7 @@ var s = {
             // 如果slideul不存在则添加ul
             if (!this.ul) {
                 var ul = this.ul = document.createElement('ul');
+                ul.id = 'archiveBarSlide';
                 ul.className = 'archiveBarslide';//hide
                 this.rootDiv && this.rootDiv.appendChild(ul);
                 // 记录按键次数，方向键
@@ -278,6 +279,19 @@ const wrapEvent = (dataItem,inputBar) =>{
         }
 };
 
+const slideEvent = (inputBar) =>{
+    var slide = document.querySelector('#archiveBarSlide');
+    slide && slide.addEventListener('click',e=>{
+        var target = e.target || e.srcElement;
+        var dataItem = target.getAttribute('title')?target:
+                    target.parentNode.getAttribute('title')?target:
+                    null;
+        if(dataItem){
+            wrapEvent(dataItem,inputBar);
+        }
+    });
+};
+
 const addWrapListener = (wrap,inputBar,archives) =>{
 	wrap && wrap.addEventListener('click',e=>{
 		var target = e.target || e.srcElement;
@@ -300,6 +314,7 @@ const addWrapListener = (wrap,inputBar,archives) =>{
 			var h=document.querySelector('.archiveBarslide');
 			h && h.classList.remove('none');
 			archives.createSearchUl(value);
+            slideEvent(inputBar);
 		}else{
 			for(var i=index+1;i<n.length;i++){
 				n[i].classList.remove('none');
@@ -339,6 +354,9 @@ const archiveClick = () =>{
 
         if(target.id.toLowerCase()==='archivesbarinput'){
             wrap && wrap.classList.toggle('hide');
+            var inputPos = inputBar.getBoundingClientRect();
+            console.log(inputPos);
+            wrap && wrap.parentNode.setAttribute('style','position:absolute;left:'+ inputPos.x +'px;top:'+ (inputPos.y+inputPos.height) +'px;z-index: 5;');
             if(initflag){
                 archives=archiveClick();
                 initflag = false;
