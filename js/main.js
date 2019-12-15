@@ -276,12 +276,10 @@ const sideBarToggle = (btn,aside,mask) =>{
 const maskEvent = (mask) =>{
     mask.addEventListener('touchmove',(event)=>{
         event.preventDefault();
-        console.log('hfds');
         event.stopPropagation ? event.stopPropagation() : event.cancelBubble = true;
     });
     mask.addEventListener('scroll',(event)=>{
         event.preventDefault();
-        console.log('hfds');
         event.stopPropagation ? event.stopPropagation() : event.cancelBubble = true;
     });
 };
@@ -355,16 +353,16 @@ const maskEvent = (mask) =>{
             $('#barShare') && $('#barShare').classList.remove('in');
             
         });
-        document.addEventListener('scroll',(event)=>{
-            event = event || window.event;
-            event.stopPropagation ? event.stopPropagation() : event.cancelBubble = true;
-            event.preventDefault();
-        });   
-        document.addEventListener('touchmove',(event)=>{
-            event = event || window.event;
-            event.stopPropagation ? event.stopPropagation() : event.cancelBubble = true;
-            event.preventDefault();
-        });   
+        // document.addEventListener('scroll',(event)=>{
+        //     event = event || window.event;
+        //     event.stopPropagation ? event.stopPropagation() : event.cancelBubble = true;
+        //     event.preventDefault();
+        // });   
+        // document.addEventListener('touchmove',(event)=>{
+        //     event = event || window.event;
+        //     event.stopPropagation ? event.stopPropagation() : event.cancelBubble = true;
+        //     event.preventDefault();
+        // });   
         /*暴露函数供外部使用*/
         var k = { 
                   tabBarBtn:tabBarBtn , 
@@ -379,7 +377,6 @@ const maskEvent = (mask) =>{
             g[e] = k[e];
             return g
         }, w.BLOG);
-        
 })(window, document);
 
 

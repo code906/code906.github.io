@@ -1,5 +1,5 @@
+
 /* local search */
-import { ajax } from './ajax.js';
 
 var dataList = null;
 var inputValue = null;

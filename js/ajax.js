@@ -62,5 +62,3 @@ function formatParams(data) {
   return arr.join("&");
 }
 
-
-export { ajax };
